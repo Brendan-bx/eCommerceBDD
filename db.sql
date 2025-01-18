@@ -24,10 +24,9 @@ CREATE TABLE IF NOT EXISTS Products (
   stock_quantity INT NOT NULL DEFAULT 0,
   category_id INT,
   supplier_id INT,
-  FOREIGN KEY (category_id) REFERENCES Categories(category_id),
-  FOREIGN KEY (supplier_id) REFERENCES Suppliers(supplier_id)
+  FOREIGN KEY (category_id) REFERENCES Categories(category_id) ON DELETE CASCADE,
+  FOREIGN KEY (supplier_id) REFERENCES Suppliers(supplier_id) ON DELETE CASCADE
 );
-
 
 -- Table des clients
 CREATE TABLE IF NOT EXISTS Customers (
@@ -45,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Orders (
     customer_id INT NOT NULL,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total_amount DECIMAL(10,2),
-    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE
 );
 
 -- Table des lignes de commande
@@ -55,9 +54,10 @@ CREATE TABLE IF NOT EXISTS Order_Lines (
     product_id INT NOT NULL,
     quantity INT NOT NULL,
     unit_price DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE CASCADE
 );
+
 
 
 -- Insertion des catégories
